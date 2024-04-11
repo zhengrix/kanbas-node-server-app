@@ -29,16 +29,28 @@ export default function UserRoutes(app) {
     await dao.createUser(req.body);
     const currentUser = await dao.findUserByUsername(req.body.username);
     req.session["currentUser"] = currentUser;
-    req.session.save();
-    res.json(currentUser);
+    req.session.save(err => {
+      if (err) {
+        // handle error
+        res.sendStatus(500);
+      } else {
+        res.json(currentUser);
+      }
+    });
   };
   const signin = async (req, res) => {
     const { username, password } = req.body;
     const currentUser = await dao.findUserByCredentials(username, password);
     if (currentUser) {
       req.session["currentUser"] = currentUser;
-      req.session.save();
-      res.json(currentUser);
+      req.session.save(err => {
+        if (err) {
+          // handle error
+          res.sendStatus(500);
+        } else {
+          res.json(currentUser);
+        }
+      });
     } else {
       res.sendStatus(401);
     }
