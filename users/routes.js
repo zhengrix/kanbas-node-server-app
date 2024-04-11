@@ -34,7 +34,6 @@ export default function UserRoutes(app) {
         // handle error
         res.sendStatus(500);
       } else {
-        console.log("currentUser", currentUser)
         res.json(currentUser);
       }
     });
@@ -49,7 +48,6 @@ export default function UserRoutes(app) {
           // handle error
           res.sendStatus(500);
         } else {
-          console.log("currentUser", currentUser)
           res.json(currentUser);
         }
       });

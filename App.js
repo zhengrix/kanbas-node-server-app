@@ -9,6 +9,13 @@ import CourseRoutes from "./kanbas/courses/routes.js";
 import ModuleRoutes from './kanbas/modules/routes.js';
 import UserRoutes from "./users/routes.js";
 const app = express();
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.FRONTEND_URL,
+  })
+);
+app.use(express.json());
 const sessionOptions = {
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -24,13 +31,6 @@ if (process.env.NODE_ENV !== "development") {
   };
 }
 app.use(session(sessionOptions));
-app.use(
-  cors({
-    credentials: true,
-    origin: process.env.FRONTEND_URL,
-  })
-);
-app.use(express.json());
 mongoose.connect(process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/kanbas');
 Hello(app);
 UserRoutes(app);
