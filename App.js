@@ -30,8 +30,7 @@ app.use(
   })
 );
 app.use(express.json());
-const CONNECTION_URL = "mongodb+srv://rixuanzheng:92TY%40lim%40@cs4550.o4kllhy.mongodb.net/kanbas?retryWrites=true&w=majority";
-mongoose.connect(CONNECTION_URL);
+mongoose.connect(process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/kanbas');
 Hello(app);
 UserRoutes(app);
 CourseRoutes(app);
