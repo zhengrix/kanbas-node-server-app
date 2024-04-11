@@ -15,6 +15,7 @@ const sessionOptions = {
   saveUninitialized: false,
 };
 if (process.env.NODE_ENV !== "development") {
+  console.log("Using secure session cookies");
   sessionOptions.proxy = true;
   sessionOptions.cookie = {
     sameSite: "none",
